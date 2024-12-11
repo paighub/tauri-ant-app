@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { Layout, Menu, message, Typography, Divider } from 'antd';
 import {
-  CompressOutlined,
+  DesktopOutlined,
   AppstoreOutlined,
   SettingOutlined,
   LogoutOutlined,
 } from '@ant-design/icons';
+import { Menu, message, Layout, Typography, Divider } from 'antd';
 
-import DevicesPage from './DevicesPage'; // 导入 DevicesPage 组件
+import DevicesPage from './DevicesPage';
 import DataPage from './DataPage';
 import SettingPage from './SettingPage';
-import { Footer } from 'antd/es/layout/layout';
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider, Content, Footer } = Layout;
 const { Title } = Typography;
 
 const HomePage: React.FC = () => {
@@ -40,29 +39,28 @@ const HomePage: React.FC = () => {
     }
   };
 
-  return (<Layout style={{ minHeight: '100vh' }}>
-    <Sider width={200} >
-      <div style={{ backgroundColor: '#f6f6f6' }}>
-        <img src="/tauri.svg" alt="Logo" style={{ width: '60px', display: 'block', margin: 'auto' }} />
-      </div>
-
-      <Menu mode="vertical" theme="light" defaultSelectedKeys={['devices']} onClick={handleMenuClick} style={{ height: '100%', fontSize: '20px' }}>
-        <Menu.Item key="devices" icon={<CompressOutlined />}>
+  return (<Layout style={{ height: '96vh' }}>
+    <Sider style={{ backgroundColor: '#f6f6f6', }}>
+      <img src="/tauri.svg" alt="Logo" style={{ height: '60px', display: 'block', margin: '10px auto' }} />
+      <Menu mode="vertical" defaultSelectedKeys={['devices']} onClick={handleMenuClick}
+        theme="light" style={{ fontSize: '20px' }}
+      >
+        <Menu.Item key="devices" icon={<DesktopOutlined style={{ fontSize: '20px' }} />}>
           Devices
         </Menu.Item>
-        <Menu.Item key="data" icon={<AppstoreOutlined />}>
+        <Menu.Item key="data" icon={<AppstoreOutlined style={{ fontSize: '20px' }} />}>
           Data
         </Menu.Item>
         <Divider type="horizontal" style={{ margin: '8px 0' }} />
-        <Menu.Item key="settings" icon={<SettingOutlined />}>
+        <Menu.Item key="settings" icon={<SettingOutlined style={{ fontSize: '20px' }} />}>
           Setting
         </Menu.Item>
-        <Divider type="horizontal" style={{ margin: '8px 0' }} />
-        <Menu.Item key="exit" icon={<LogoutOutlined />} style={{ position: 'absolute', bottom: 0 }}>
+        <Menu.Item key="exit" icon={<LogoutOutlined style={{ fontSize: '20px', color: 'red' }} />} style={{ position: 'absolute', bottom: '1vh' }}>
           Exit
         </Menu.Item>
       </Menu>
     </Sider>
+
     <Layout>
       <Header style={{ padding: '10px 24px', background: '#fff' }}>
         <Title level={3} style={{ margin: 0 }}>
@@ -78,8 +76,7 @@ const HomePage: React.FC = () => {
         Ant Design ©2024 Created by Ant UED
       </Footer>
     </Layout>
-  </Layout>
-  );
+  </Layout>);
 };
 
 export default HomePage;
