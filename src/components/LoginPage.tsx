@@ -1,14 +1,17 @@
-// LoginPage.tsx
-import { ReactDOM, useState } from 'react';
+import { useState } from 'react';
 import { Input, Button, message } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons'; // 导入图标组件
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useAuth } from '../context/AuthContext.tsx'
-import './LoginPage.css'; // 引入样式文件
+import './LoginPage.css';
+
+import { useVersion } from '../context/VersionContext';
 
 const LoginPage = () => {
     const { login } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    const { version } = useVersion();
 
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
@@ -45,6 +48,9 @@ const LoginPage = () => {
                 <Button type="primary" block onClick={handleLogin}>
                     Login
                 </Button>
+                <div style={{ marginTop: 20, fontSize: 14, color: '#888' }}>
+                    Version: {version}
+                </div>
             </div>
         </div>
     );
