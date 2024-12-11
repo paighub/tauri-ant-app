@@ -13,8 +13,8 @@
     "windows": [
       {
         "title": "tauri-ant-app",
-        "width": 800,
-        "height": 600
+        "resizable": false,
+        "fullscreen": true
       }
     ],
     "security": {
