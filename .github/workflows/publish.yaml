@@ -64,10 +64,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: RPM Bundle
-          path: ${{ github.workspace }}/src-tauri/target/release/bundle/rpm/appname-${{ env.APP_VERSION }}-1.${{ matrix.rpm }}.rpm
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/rpm/tauri-ant-app-__VERSION__-1.x86_64.rpm
 
       - name: Upload appimage bundle
         uses: actions/upload-artifact@v3
         with:
           name: AppImage Bundle
-          path: ${{ github.workspace }}/src-tauri/target/release/bundle/appimage/appname_${{ env.APP_VERSION }}_${{ matrix.appimage }}.AppImage
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/appimage/tauri-ant-app___VERSION___amd64.AppImage
