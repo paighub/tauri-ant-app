@@ -9,6 +9,7 @@
     "core:default",
     "shell:allow-open",
     "core:window:default",
-    "core:window:allow-set-fullscreen"
+    "core:window:allow-set-fullscreen",
+    "core:window:allow-close"
   ]
 }

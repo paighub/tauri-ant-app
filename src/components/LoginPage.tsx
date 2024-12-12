@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { Input, Button, message } from 'antd';
+import { Input, Button, message, Space } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { useAuth } from '../context/AuthContext.tsx'
 import './LoginPage.css';
 
+import { getCurrentWindow } from "@tauri-apps/api/window";
+
+import { useAuth } from '../context/AuthContext.tsx'
 import { useVersion } from '../context/VersionContext';
 
 const LoginPage = () => {
@@ -29,6 +31,10 @@ const LoginPage = () => {
         message.success('Login successful!');
     };
 
+    const handleExit = async () => {
+        getCurrentWindow().close();
+    };
+
     return (
         <div className="login-container">
             <div className="login-box">
@@ -45,9 +51,14 @@ const LoginPage = () => {
                     placeholder="Password" className="input-field"
                     value={password}
                     onChange={handlePasswordChange} />
-                <Button type="primary" block onClick={handleLogin}>
-                    Login
-                </Button>
+                <Space>
+                    <Button type="primary" block onClick={handleLogin}>
+                        Login
+                    </Button>
+                    <Button block onClick={handleExit}>
+                        Exit
+                    </Button>
+                </Space>
                 <div style={{ marginTop: 20, fontSize: 14, color: '#888' }}>
                     Version: {version}
                 </div>
