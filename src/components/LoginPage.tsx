@@ -6,15 +6,14 @@ import './LoginPage.css';
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { invoke } from "@tauri-apps/api/core";
 
-import { useAuth } from '../context/AuthContext.tsx'
-import { useVersion } from '../context/VersionContext';
+import FooterPage from './FooterPage';
+
+import { useAuth } from '../context/AuthContext'
 
 const LoginPage = () => {
     const { login } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
-    const { version } = useVersion();
 
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
@@ -69,7 +68,7 @@ const LoginPage = () => {
                     </Button>
                 </Space>
                 <div style={{ marginTop: 20, fontSize: 14, color: '#888' }}>
-                    Version: {version}
+                    <FooterPage />
                 </div>
             </div>
         </div>

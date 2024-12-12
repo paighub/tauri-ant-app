@@ -10,9 +10,9 @@ import { Menu, Layout, Typography, Divider } from 'antd';
 import DevicesPage from './DevicesPage';
 import DataPage from './DataPage';
 import SettingPage from './SettingPage';
+import FooterPage from './FooterPage';
 
 import { useAuth } from '../context/AuthContext.tsx'
-import { useVersion } from '../context/VersionContext';
 
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -21,7 +21,6 @@ const { Title } = Typography;
 const HomePage: React.FC = () => {
   const [current, setCurrent] = useState('devices');
 
-  const { version } = useVersion();
   const { logout } = useAuth();
 
   const handleMenuClick = (e: any) => {
@@ -80,7 +79,7 @@ const HomePage: React.FC = () => {
         </div>
       </Content>
       <Footer style={{ textAlign: 'center' }}>
-        Ant Design ©2024 Created by Ant UED Version: {version}
+        <FooterPage />
       </Footer>
     </Layout>
   </Layout>);
