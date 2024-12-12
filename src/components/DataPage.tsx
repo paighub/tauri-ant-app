@@ -1,24 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Button, Row, Col, Modal } from "antd";
+
+import { invoke } from "@tauri-apps/api/core";
 
 import AddDataForm from './AddDataForm';
 
-const dataSource = [
-    {
-        key: '1',
-        name: '胡彦斌',
-        age: 32,
-        address: '西湖区湖底公园1号',
-    },
-    {
-        key: '2',
-        name: '胡彦祖',
-        age: 42,
-        address: '西湖区湖底公园1号',
-    },
-];
-
 const columns = [
+    {
+        title: 'ID',
+        dataIndex: 'id',
+        key: 'id',
+    },
     {
         title: '姓名',
         dataIndex: 'name',
@@ -30,16 +22,22 @@ const columns = [
         key: 'age',
     },
     {
+        title: '手机',
+        dataIndex: 'phone',
+        key: 'phone',
+    },
+    {
         title: '住址',
         dataIndex: 'address',
         key: 'address',
     },
 ];
 
+
 const DataPage: React.FC = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
-
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [dataSource, setDataSource] = useState<any[]>([]); // 添加状态变量
 
     const rowSelection = {
         selectedRowKeys,
@@ -47,6 +45,16 @@ const DataPage: React.FC = () => {
             setSelectedRowKeys(keys);
         }
     };
+
+    useEffect(() => {
+        console.log('Fetching data...');
+        invoke('data_get')
+            .then((res) => {
+                console.log('Received data:', res);
+                setDataSource(res as any[]); // 更新 dataSource 状态变量
+            })
+            .catch((err) => console.error('Failed to fetch data:', err));
+    }, []);
 
     const showModal = () => {
         setIsModalVisible(true);
