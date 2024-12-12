@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import LoginPage from "./components/LoginPage";
 import HomePage from "./components/HomePage";
 import { useAuth } from "./context/AuthContext";
-import { getCurrentWindow  } from "@tauri-apps/api/window";
+import { getCurrentWindow } from "@tauri-apps/api/window";
 
 function App() {
   const { isAuthenticated } = useAuth();  // 获取登录状态
