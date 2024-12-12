@@ -4,6 +4,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './LoginPage.css';
 
 import { getCurrentWindow } from "@tauri-apps/api/window";
+import { invoke } from "@tauri-apps/api/core";
 
 import { useAuth } from '../context/AuthContext.tsx'
 import { useVersion } from '../context/VersionContext';
@@ -25,10 +26,18 @@ const LoginPage = () => {
 
     const handleLogin = async () => {
         message.info('Logging in...' + username + password);
-        // todo check username and password
-
-        login();
-        message.success('Login successful!');
+        invoke<boolean>('login', { user: username, password: password })
+            .then((res) => {
+                if (res) {
+                    login();
+                    message.success('Login successful!');
+                } else {
+                    message.error('Login failed!');
+                }
+            })
+            .catch((err) => {
+                console.error('Failed to fetch version:', err);
+            });
     };
 
     const handleExit = async () => {
