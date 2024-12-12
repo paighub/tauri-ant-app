@@ -5,11 +5,15 @@ import {
   SettingOutlined,
   LogoutOutlined,
 } from '@ant-design/icons';
-import { Menu, message, Layout, Typography, Divider } from 'antd';
+import { Menu, Layout, Typography, Divider } from 'antd';
 
 import DevicesPage from './DevicesPage';
 import DataPage from './DataPage';
 import SettingPage from './SettingPage';
+import FooterPage from './FooterPage';
+
+import { useAuth } from '../context/AuthContext.tsx'
+
 
 const { Header, Sider, Content, Footer } = Layout;
 const { Title } = Typography;
@@ -17,9 +21,11 @@ const { Title } = Typography;
 const HomePage: React.FC = () => {
   const [current, setCurrent] = useState('devices');
 
+  const { logout } = useAuth();
+
   const handleMenuClick = (e: any) => {
-    if (e.key === 'exit') {
-      message.warning("exit todo action");
+    if (e.key === 'logout') {
+      logout();
       return;
     }
 
@@ -55,8 +61,8 @@ const HomePage: React.FC = () => {
         <Menu.Item key="settings" icon={<SettingOutlined style={{ fontSize: '20px' }} />}>
           Setting
         </Menu.Item>
-        <Menu.Item key="exit" icon={<LogoutOutlined style={{ fontSize: '20px', color: 'red' }} />} style={{ position: 'absolute', bottom: '1vh' }}>
-          Exit
+        <Menu.Item key="logout" icon={<LogoutOutlined style={{ fontSize: '20px', color: 'red' }} />} style={{ position: 'absolute', bottom: '1vh' }}>
+          Logout
         </Menu.Item>
       </Menu>
     </Sider>
@@ -73,7 +79,7 @@ const HomePage: React.FC = () => {
         </div>
       </Content>
       <Footer style={{ textAlign: 'center' }}>
-        Ant Design ©2024 Created by Ant UED
+        <FooterPage />
       </Footer>
     </Layout>
   </Layout>);

@@ -1,17 +1,19 @@
 import { useState } from 'react';
-import { Input, Button, message } from 'antd';
+import { Input, Button, message, Space } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { useAuth } from '../context/AuthContext.tsx'
 import './LoginPage.css';
 
-import { useVersion } from '../context/VersionContext';
+import { getCurrentWindow } from "@tauri-apps/api/window";
+import { invoke } from "@tauri-apps/api/core";
+
+import FooterPage from './FooterPage';
+
+import { useAuth } from '../context/AuthContext'
 
 const LoginPage = () => {
     const { login } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
-    const { version } = useVersion();
 
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
@@ -23,10 +25,22 @@ const LoginPage = () => {
 
     const handleLogin = async () => {
         message.info('Logging in...' + username + password);
-        // todo check username and password
+        invoke<boolean>('login', { user: username, password: password })
+            .then((res) => {
+                if (res) {
+                    login();
+                    message.success('Login successful!');
+                } else {
+                    message.error('Login failed!');
+                }
+            })
+            .catch((err) => {
+                console.error('Failed to fetch version:', err);
+            });
+    };
 
-        login();
-        message.success('Login successful!');
+    const handleExit = async () => {
+        getCurrentWindow().close();
     };
 
     return (
@@ -45,11 +59,16 @@ const LoginPage = () => {
                     placeholder="Password" className="input-field"
                     value={password}
                     onChange={handlePasswordChange} />
-                <Button type="primary" block onClick={handleLogin}>
-                    Login
-                </Button>
+                <Space>
+                    <Button type="primary" block onClick={handleLogin}>
+                        Login
+                    </Button>
+                    <Button block onClick={handleExit}>
+                        Exit
+                    </Button>
+                </Space>
                 <div style={{ marginTop: 20, fontSize: 14, color: '#888' }}>
-                    Version: {version}
+                    <FooterPage />
                 </div>
             </div>
         </div>
