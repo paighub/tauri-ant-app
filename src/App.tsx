@@ -17,12 +17,12 @@ function App() {
       }
     }
 
-    const setFullscreen = async () => {
+    const setScreen = async () => {
       const appWindow = getCurrentWindow();
-      await appWindow.setFullscreen(true);
+      await appWindow.maximize();
     };
 
-    setFullscreen();
+    setScreen();
   }, []); // 空数组作为依赖项，确保只在组件挂载时运行一次
 
 
